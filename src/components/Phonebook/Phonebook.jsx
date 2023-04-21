@@ -15,7 +15,7 @@ export class Phonebook extends Component {
             required
             onChange={onInput}
           />
-          <button>{btn}</button>
+          <button type="submit">{btn}</button>
         </form>
       </div>
     );
