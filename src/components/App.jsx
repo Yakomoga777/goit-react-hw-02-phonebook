@@ -42,7 +42,9 @@ export class App extends Component {
             handleSubmit={() => {
               this.addNewConract();
             }}
-            onInput={this.onChangeInput}
+            onInput={event => {
+              this.onChangeInput(event);
+            }}
           />
         </div>
         <Contacs title="contacts" items={this.state.contacts} />
