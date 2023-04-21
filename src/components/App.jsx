@@ -9,29 +9,41 @@ const theme = {};
 
 export class App extends Component {
   state = {
-    contacts: [1, 2, 3],
+    contacts: [],
     name: '',
   };
 
-  onChangeInput(event) {
-    const contactName = event.target.value;
-    console.log(contactName);
-    return contactName;
-    // this.setState(prevState => {});
+  handleSubmit = event => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.elements.name.value;
+    this.setState(prevState => {
+      return { name: name, contacts: [...[name]] };
+    });
+  };
+
+  addNewContact() {
+    console.log(this.state);
   }
+  // onChangeInput(event) {
+  //   const contactName = event.target.value;
+  //   console.log(contactName);
+  //   return contactName;
+  //   // this.setState(prevState => {});
+  // }
 
   //Створюємо метод додавання контакту
-  addNewConract(event) {
-    event.preventDefault();
+  // addNewConract(event) {
+  //   event.preventDefault();
 
-    // const item = this.onChangeInput();
-    // console.log(item);
-    console.log('add');
-  }
+  //   // const item = this.onChangeInput();
+  //   // console.log(item);
+  //   console.log('add');
+  // }
 
   // Функція рендеру:
   render() {
-    console.log(this.state.contacts);
+    console.log(this.state);
     return (
       <ThemeProvider theme={theme}>
         <GlobalStyle />
@@ -39,12 +51,12 @@ export class App extends Component {
           <Phonebook
             title="name"
             btn="Add contact"
-            handleSubmit={() => {
-              this.addNewConract();
+            handleSubmit={event => {
+              this.handleSubmit(event);
             }}
-            onInput={event => {
-              this.onChangeInput(event);
-            }}
+            // onInput={event => {
+            //   this.onChangeInput(event);
+            // }}
           />
         </div>
         <Contacs title="contacts" items={this.state.contacts} />
