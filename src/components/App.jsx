@@ -65,13 +65,15 @@ export class App extends Component {
     const filteredContacts = contacts.filter(item =>
       item.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
     );
-    this.setState({ contacts: filteredContacts });
+    // this.setState({ contacts: filteredContacts });
     console.log(filteredContacts);
+    return filteredContacts;
   }
 
   // Функція рендеру:
   render() {
     console.log(this.state);
+
     return (
       <ThemeProvider theme={theme}>
         <GlobalStyle />
@@ -94,7 +96,7 @@ export class App extends Component {
         </div>
         <Contacs
           title="contacts"
-          items={this.state.contacts}
+          items={this.filtersContacts()}
           // onFilterInput={this.onFilter()}
           valuefilter={this.state.filter}
           onFilterInput={event => {
