@@ -22,8 +22,6 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    // name: '',
-    // number: '',
   };
 
   handleSubmit = event => {
@@ -54,8 +52,10 @@ export class App extends Component {
 
     this.reset();
   };
+
   reset = () => {
     this.setState({ ...INITIAL_STATE });
+    console.log('чисто');
   };
 
   handleChangeFilter = event => {
@@ -63,27 +63,27 @@ export class App extends Component {
     this.filtersContacts();
   };
 
-  filtersContacts() {
+  filtersContacts = () => {
     const { contacts, filter } = this.state;
     const filteredContacts = contacts.filter(item =>
       item.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
     );
-    // this.setState({ contacts: filteredContacts });
+
     console.log(filteredContacts);
 
     return filteredContacts;
-  }
+  };
 
   //Метод видалення
-  handleDelete(id) {
+  handleDelete = id => {
     // const { contacts } = this.state;
     this.setState(prevState => ({
-      conntacts: this.conntacts.filter(contact => contact.id !== id),
+      contacts: this.state.contacts.filter(contact => contact.id !== id),
     }));
     // console.log(contacts);
     // console.log(this.prevState.conntacts);
     console.log(id);
-  }
+  };
 
   // Функція рендеру:
   render() {

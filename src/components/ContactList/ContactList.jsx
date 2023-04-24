@@ -7,13 +7,6 @@ export class ContactList extends Component {
     const { items, handleDelete } = this.props;
     return (
       <>
-        {/* <input
-          type="text"
-          name="filter"
-          required
-          value={value}
-          onChange={onFilterInput}
-        /> */}
         <ul>
           {items.map(item => {
             const { id } = item;

@@ -13,15 +13,13 @@ export class ContactForm extends Component {
     this.setState({ number: evt.target.value });
   };
 
+  // reset = () => {
+  //   this.setState({ ...INITIAL_STATE });
+  //   console.log('чисто');
+  // };
+
   render() {
-    const {
-      btn,
-      handleSubmit,
-      // onNameInput,
-      // valueName,
-      // onNumberInput,
-      // valueNumber,
-    } = this.props;
+    const { btn, handleSubmit } = this.props;
 
     // console.log(this.state);
     return (
