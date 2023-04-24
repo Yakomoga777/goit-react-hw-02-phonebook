@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { nanoid } from 'nanoid';
 
-import { Contacs } from './Contacts/Contacts';
+import { ContactList } from './ContactList/ContactList';
 import { GlobalStyle } from './GlobalStyle/GlobalStyle';
-import { Phonebook } from './Phonebook/Phonebook';
+import { ContactForm } from './ContactForm/ContactForm';
+import { Filter } from './Filter/Filter';
 
 const theme = {};
 const INITIAL_STATE = {
@@ -21,16 +22,25 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
+    // name: '',
+    // number: '',
   };
 
   handleSubmit = event => {
     event.preventDefault();
     const form = event.target;
     const name = form.elements.name.value;
-    // console.log(event.target.elements[name]);
     const number = form.elements.number.value;
+
+    const IncludesName = this.state.contacts.find(
+      contact => contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
+    );
+
+    if (IncludesName) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+
     this.setState(prevState => ({
       contacts: [
         ...prevState.contacts,
@@ -48,13 +58,6 @@ export class App extends Component {
     this.setState({ ...INITIAL_STATE });
   };
 
-  handleChangeName = evt => {
-    this.setState({ name: evt.target.value });
-  };
-  handleChangeNumber = evt => {
-    this.setState({ number: evt.target.value });
-  };
-
   handleChangeFilter = event => {
     this.setState({ filter: event.target.value });
     this.filtersContacts();
@@ -67,41 +70,40 @@ export class App extends Component {
     );
     // this.setState({ contacts: filteredContacts });
     console.log(filteredContacts);
+
     return filteredContacts;
+  }
+
+  //Метод видалення
+  handleDelete(id) {
+    // const { contacts } = this.state;
+    this.setState(prevState => ({
+      conntacts: this.conntacts.filter(contact => contact.id !== id),
+    }));
+    // console.log(contacts);
+    // console.log(this.prevState.conntacts);
+    console.log(id);
   }
 
   // Функція рендеру:
   render() {
     console.log(this.state);
-
     return (
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <div>
-          <Phonebook
-            title="name"
-            btn="Add contact"
-            handleSubmit={event => {
-              this.handleSubmit(event);
-            }}
-            valueName={this.state.name}
-            valueNumber={this.state.number}
-            onNameInput={event => {
-              this.handleChangeName(event);
-            }}
-            onNumberInput={event => {
-              this.handleChangeNumber(event);
-            }}
-          />
+          <h1>Phonebook</h1>
+          <ContactForm btn="Add contact" handleSubmit={this.handleSubmit} />
         </div>
-        <Contacs
-          title="contacts"
+        <h2>Contacts</h2>
+        <Filter
+          value={this.state.filter}
+          onFilterInput={this.handleChangeFilter}
+        />
+        <ContactList
           items={this.filtersContacts()}
+          handleDelete={this.handleDelete}
           // onFilterInput={this.onFilter()}
-          valuefilter={this.state.filter}
-          onFilterInput={event => {
-            this.handleChangeFilter(event);
-          }}
         />
       </ThemeProvider>
     );

@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
 
-export class Phonebook extends Component {
+export class ContactForm extends Component {
+  state = {
+    name: '',
+    number: '',
+  };
+
+  handleChangeName = evt => {
+    this.setState({ name: evt.target.value });
+  };
+  handleChangeNumber = evt => {
+    this.setState({ number: evt.target.value });
+  };
+
   render() {
     const {
-      title,
       btn,
       handleSubmit,
-      onNameInput,
-      valueName,
-      onNumberInput,
-      valueNumber,
+      // onNameInput,
+      // valueName,
+      // onNumberInput,
+      // valueNumber,
     } = this.props;
+
+    // console.log(this.state);
     return (
       <div>
-        <h3>{title}</h3>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -21,8 +33,8 @@ export class Phonebook extends Component {
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
-            value={valueName}
-            onChange={onNameInput}
+            value={this.state.name}
+            onChange={this.handleChangeName}
           />
           <input
             type="tel"
@@ -30,8 +42,8 @@ export class Phonebook extends Component {
             // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            value={valueNumber}
-            onChange={onNumberInput}
+            value={this.state.number}
+            onChange={this.handleChangeNumber}
           />
           <button type="submit">{btn}</button>
         </form>
