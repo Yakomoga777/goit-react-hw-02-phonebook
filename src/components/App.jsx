@@ -8,10 +8,6 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 
 const theme = {};
-const INITIAL_STATE = {
-  name: '',
-  number: '',
-};
 
 export class App extends Component {
   state = {
@@ -38,7 +34,6 @@ export class App extends Component {
       alert(`${name} is already in contacts`);
       return;
     }
-
     this.setState(prevState => ({
       contacts: [
         ...prevState.contacts,
@@ -49,13 +44,7 @@ export class App extends Component {
         },
       ],
     }));
-
-    this.reset();
-  };
-
-  reset = () => {
-    this.setState({ ...INITIAL_STATE });
-    console.log('чисто');
+    console.log('Submit');
   };
 
   handleChangeFilter = event => {
@@ -91,10 +80,10 @@ export class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <div>
-          <h1>Phonebook</h1>
-          <ContactForm btn="Add contact" handleSubmit={this.handleSubmit} />
-        </div>
+
+        <h1>Phonebook</h1>
+        <ContactForm btn="Add contact" handleSubmit={this.handleSubmit} />
+
         <h2>Contacts</h2>
         <Filter
           value={this.state.filter}
@@ -103,7 +92,6 @@ export class App extends Component {
         <ContactList
           items={this.filtersContacts()}
           handleDelete={this.handleDelete}
-          // onFilterInput={this.onFilter()}
         />
       </ThemeProvider>
     );
