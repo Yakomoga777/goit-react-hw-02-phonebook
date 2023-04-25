@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StiledItem } from './ContactItem.styled';
 
 export function ContactItem({ id, name, number, handleDelete }) {
